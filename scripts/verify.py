@@ -2,6 +2,7 @@
 import subprocess, sys, time
 from playwright.sync_api import sync_playwright
 
+URL = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8765/index.html"
 srv = subprocess.Popen([sys.executable, "-m", "http.server", "8765"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 time.sleep(1)
 errors, ok = [], True
@@ -21,7 +22,7 @@ try:
         page = b.new_page(viewport={"width": 1280, "height": 900})
         page.on("console", lambda m: m.type == "error" and errors.append(m.text))
         page.on("pageerror", lambda e: errors.append(str(e)))
-        page.goto("http://localhost:8765/index.html"); page.wait_for_load_state("networkidle")
+        page.goto(URL); page.wait_for_load_state("networkidle")
         r = page.locator("#result")
 
         setup(page, "vrf", "mixed", "replacement", "gas", 20, 50000)
@@ -55,7 +56,7 @@ try:
 
         m = b.new_page(viewport={"width": 390, "height": 844})
         m.on("console", lambda msg: msg.type == "error" and errors.append(msg.text))
-        m.goto("http://localhost:8765/index.html"); m.wait_for_load_state("networkidle")
+        m.goto(URL); m.wait_for_load_state("networkidle")
         setup(m, "vrf", "mixed", "replacement", "gas", 20, 50000)
         sw, cw = m.evaluate("[document.documentElement.scrollWidth, document.documentElement.clientWidth]")
         fb, rt = m.locator("#form").bounding_box(), m.locator("#result").bounding_box()
