@@ -3248,9 +3248,9 @@ function modelsTable(models) {
     ${sorted.length > 50 ? `<p class="text-xs text-slate-500 mb-2">Showing 50 of ${sorted.length.toLocaleString()}</p>` : `<p class="text-xs text-slate-500 mb-2">${sorted.length} model${sorted.length === 1 ? "" : "s"}</p>`}
     <div class="overflow-x-auto -mx-2">
       <table class="text-sm w-full">
-        <thead class="bg-slate-100 text-slate-700"><tr>${th("Model")}${th("Indoor model")}${th("Tons")}${cols.map(([, l]) => th(l)).join("")}</tr></thead>
+        <thead class="bg-slate-100 text-slate-700"><tr>${th("Model")}${th("Tons")}${cols.map(([, l]) => th(l)).join("")}</tr></thead>
         <tbody class="divide-y divide-slate-100">
-          ${shown.map((m) => `<tr>${td(m.model)}${td(m.indoorModel)}${td(m.tons)}${cols.map(([k]) => td(m[k])).join("")}</tr>`).join("")}
+          ${shown.map((m) => `<tr>${td(m.model)}${td(m.tons)}${cols.map(([k]) => td(m[k])).join("")}</tr>`).join("")}
         </tbody>
       </table>
     </div>`;
